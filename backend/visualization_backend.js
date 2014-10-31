@@ -106,7 +106,7 @@ app.get('/visualizations', function(req, res) {
                     width: 500,
                     height: 500,
                     background_color: "#ffffff",
-                    style: ["#001122", "#ff0000", "#0123ff"],
+                   // style: ["#001122", "#ff0000", "#0123ff"],
                     axis: {
                         hLabel: "HorizontalLabelName",
                         vLabel: "VerticalLabelName",
@@ -140,7 +140,7 @@ app.get('/visualizations', function(req, res) {
                     width: 500,
                     height: 500,
                     background_color: "#ffffff",
-                    style: ["#001122", "#ff0000", "#0123ff"],
+                    //style: ["#001122", "#ff0000", "#0123ff"],
                     axis: {
                         hLabel: "HorizontalLabelName",
                         vLabel: "VerticalLabelName",
