@@ -4,16 +4,16 @@ App.VisualizationController = Ember.ArrayController.extend({
         console.log("Setting up visualization:");
         console.dir(visualization);
         
-        // var mapping = templateMapping(visualizaiton)
-        // var structureOptionMappings = mapping.structureOptionMappings
-        // var layoutOptionMappings = mapping.layoutOptionMappings
-        // var configuration = mapping.configuration
+        var mapping = templateMapping(visualizaiton);
+        var structureOptionMappings = mapping.structureOptionMappings;
+        var layoutOptionMappings = mapping.layoutOptionMappings;
+        var configuration = mapping.configuration;
 
         // *** MOCK START
         // These values have to be returned by templateMapping
         // 
         // Configuration result that will be passed to visualization
-        var configuration = {
+        /* var configuration = {
             axis: {
                 xAxis: [{
                         "URI1": "Reference Period"
@@ -29,7 +29,7 @@ App.VisualizationController = Ember.ArrayController.extend({
         // Template mapping result
         var structureOptionMappings = [
             {template: "dimension-area", options: {label: "X Axis", value: configuration.axis.xAxis}}
-        ];
+        ]; */
 
         // *** MOCK END
         // TODO clear configuration views
@@ -41,6 +41,9 @@ App.VisualizationController = Ember.ArrayController.extend({
         for (var i = 0; i < mappings.length; i++) {
             var mapping = mappings[i];
             // TODO: Find component for mapping
+            // templateName = mapping.template;
+            // 
+            // TODO: Transfer function templateName to View
             // targetContainerView.pushObject(optionView);
         }
     },
