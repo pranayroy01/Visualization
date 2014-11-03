@@ -1,5 +1,6 @@
 App.VisualizationController = Ember.ArrayController.extend({
     configuration: {},
+    
     setupVisualization: function(visualization) {
         console.log("Setting up visualization:");
         console.dir(visualization);
