@@ -12,9 +12,53 @@
                           yAxis: [[classURI2, yLabel, parentURI3,parentURI4,entityURI2]], - "year"
                           groupBy: [],
                           addedSeries: []
-                          } ---- "country","year"
+                          } 
 		chart: "Line Chart"
-	}
+	},
+        {
+                pattern:{
+                    xAxis: [[classURI1, xLabel, parentURI1,parentURI2,entityURI1]], 
+                    yAxis: [[classURI2, yLabel, parentURI3,parentURI4,entityURI2]], 
+                    groupBy: [],
+                    addedSeries: []
+                },
+                chart: "Area Chart"
+        },
+        {
+                pattern: {
+                    xAxis: [[classURI1, xLabel, parentURI1,parentURI2,entityURI1]], - "country"
+                    yAxis: [[classURI2, yLabel, parentURI3,parentURI4,entityURI2]], - "year"
+                    group: [],
+                    addedSeries: []
+                },
+                chart: "Scatter Chart"
+        },
+        {
+                pattern: {
+                    xAxis: [],
+                    yAxis: [],
+                    label: [],
+                    color: [],
+                    radius: []
+                },
+                chart: "Bubble Chart"
+        },
+        {
+                pattern: {
+                    measure: [],
+                    slice: []
+                },
+                chart: "Pie Chart"
+        },
+        {
+                pattern: {
+                    lat: [],
+                    long: [],
+                    indicator: [],
+                    label: []
+                },
+                chart: "Map"
+        }
 ] */
 function ranking(validPatterns)  {
     
@@ -106,7 +150,15 @@ function ranking(validPatterns)  {
         }
     //build configuration for a top choice
     if (validPatterns[0].chart === "Line Chart") {
-        //get pattern 
+        //get plabels 
+        var hLabel ="";
+        var vLabel = "";
+        for (var i= 0; i< dimensionValues['xAxis'].length; i++){
+            hLabel += dimensionValues['xAxis'][i].label + " ";
+        }
+        for (var i= 0; i< dimensionValues['yAxis'].length; i++){
+            vLabel += dimensionValues['yAxis'][i].label + " ";
+        }
         
         
     	configuration  = {
@@ -125,21 +177,21 @@ function ranking(validPatterns)  {
 	                },
 	                yAxis: {
 	                    label: "Drag & drop a measure",
-	                    value: [],
+	                    value: dimensionValues['yAxis'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                },
 	                orderBy: {
 	                    label: "Order by",
-	                    value: [],
+	                    value: dimensionValues['orderBy'],
 	                    metadata: {
 	                        types: ["ordinal value "]
 	                    }
 	                },
 	                addedSeries: {
 	                    label: "Drag & drop additional series",
-	                    value: [],
+	                    value: dimensionValues['addedSeries'],
 	                    metadata: {
 	                        types: ["any"]
 	                    }
@@ -150,13 +202,13 @@ function ranking(validPatterns)  {
 	            axis: {
 	                hLabel: {
 	                    label: "Horizontal Label",
-	                    value: "",
+	                    value: hLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                }, vLabel: {
 	                    label: "Vertical Label",
-	                    value: "",
+	                    value: vLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
@@ -168,7 +220,7 @@ function ranking(validPatterns)  {
 	                    }
 	                }, tooltip: {
 	                    label: "Show Tooltip",
-	                    value: false,
+	                    value: true,
 	                    metadata: {
 	                        types: ["boolean"]
 	                    }
@@ -184,6 +236,15 @@ function ranking(validPatterns)  {
 	        datasource: ds_model
     	};
     } else if (validPatterns[0].chart === "Column Chart") {
+        var hLabel ="";
+        var vLabel = "";
+        for (var i= 0; i< dimensionValues['xAxis'].length; i++){
+            hLabel += dimensionValues['xAxis'][i].label + " ";
+        }
+        for (var i= 0; i< dimensionValues['yAxis'].length; i++){
+            vLabel += dimensionValues['yAxis'][i].label + " ";
+        }
+        
     	configuration = {
     		id: 282534,
 	        name: "Column Chart",
@@ -192,25 +253,25 @@ function ranking(validPatterns)  {
 	            dimensions: {
 	                xAxis: {
 	                    label: "Drag & drop categories",
-	                    value: [],
+	                    value: dimensionValues['xAxis'],
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                }, yAxis: {
 	                    label: "Drag & drop a measure",
-	                    value: [],
+	                    value: dimensionValues['yAxis'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                }, group: {
 	                    label: "Group by",
-	                    value: [],
+	                    value: dimensionValues['group'],
 	                    metadata: {
 	                        types: ["any"]
 	                    }
 	                }, stackedGroup: {
 	                    label: "Build stacked groups by",
-	                    value: [],
+	                    value: dimensionValues['stackedGroup'],
 	                    metadata: {
 	                        types: ["any"]
 	                    }
@@ -221,13 +282,13 @@ function ranking(validPatterns)  {
 	            axis: {
 	                hLabel: {
 	                    label: "Horizontal Label",
-	                    value: "",
+	                    value: hLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                }, vLabel: {
 	                    label: "Vertical Label",
-	                    value: "",
+	                    value: vLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
@@ -245,7 +306,7 @@ function ranking(validPatterns)  {
 	                    }
 	                }, tooltip: {
 	                    label: "Show Tooltip",
-	                    value: false,
+	                    value: true,
 	                    metadata: {
 	                        types: ["boolean"]
 	                    }
@@ -261,6 +322,15 @@ function ranking(validPatterns)  {
 	        datasource: ds_model
     	};
     } else if (validPatterns[0].chart === "Area Chart") {
+        var hLabel ="";
+        var vLabel = "";
+        for (var i= 0; i< dimensionValues['xAxis'].length; i++){
+            hLabel += dimensionValues['xAxis'][i].label + " ";
+        }
+        for (var i= 0; i< dimensionValues['yAxis'].length; i++){
+            vLabel += dimensionValues['yAxis'][i].label + " ";
+        }
+        
     	configuration = {
     		id: 386595,
 	        name: "Area Chart",
@@ -269,28 +339,28 @@ function ranking(validPatterns)  {
 	            dimensions: {
 	                xAxis: {
 	                    label: "Drag & drop a ordinal value",
-	                    value: [],
+	                    value: dimensionValues['xAxis'],
 	                    metadata: {
 	                        types: ["dates or ", "other continuous values such as distances"]
 	                    }
 	                },
 	                yAxis: {
 	                    label: "Drag & drop a measure",
-	                    value: [],
+	                    value: dimensionValues['yAxis'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                },
 	                orderBy: {
 	                    label: "Order by",
-	                    value: [],
+	                    value: dimensionValues['orderBy'],
 	                    metadata: {
 	                        types: ["ordinal value "]
 	                    }
 	                },
 	                addedSeries: {
 	                    label: "Drag & drop additional series",
-	                    value: [],
+	                    value: dimensionValues['addedSeries'],
 	                    metadata: {
 	                        types: ["any"]
 	                    }
@@ -301,13 +371,13 @@ function ranking(validPatterns)  {
 	            axis: {
 	                hLabel: {
 	                    label: "Horizontal Label",
-	                    value: "",
+	                    value: hLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                }, vLabel: {
 	                    label: "Vertical Label",
-	                    value: "",
+	                    value: vLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
@@ -319,7 +389,7 @@ function ranking(validPatterns)  {
 	                    }
 	                }, tooltip: {
 	                    label: "Show Tooltip",
-	                    value: false,
+	                    value: true,
 	                    metadata: {
 	                        types: ["boolean"]
 	                    }
@@ -335,6 +405,15 @@ function ranking(validPatterns)  {
 	        datasource: ds_model
     	};
     } else if (validPatterns[0].chart === "Bubble Chart") {
+        var hLabel ="";
+        var vLabel = "";
+        for (var i= 0; i< dimensionValues['xAxis'].length; i++){
+            hLabel += dimensionValues['xAxis'][i].label + " ";
+        }
+        for (var i= 0; i< dimensionValues['yAxis'].length; i++){
+            vLabel += dimensionValues['yAxis'][i].label + " ";
+        }
+        
     	configuration = {
     		id: 3144372,
 	        name: "Bubble Chart",
@@ -343,35 +422,35 @@ function ranking(validPatterns)  {
 	            dimensions: {
 	                label: {
 	                    label: "Label",
-	                    value: [],
+	                    value: dimensionValues['label'],
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                },
 	                xAxis: {
 	                    label: "Horizontal Axis",
-	                    value: [],
+	                    value: dimensionValues['xAxis'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                },
 	                yAxis: {
 	                    label: "Vertical Axis",
-	                    value: [],
+	                    value: dimensionValues['yAxis'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                },
 	                color: {
 	                    label: "Color",
-	                    value: [],
+	                    value: dimensionValues['color'],
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                },
 	                radius: {
 	                    label: "Radius",
-	                    value: [],
+	                    value: dimensionValues['radius'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
@@ -383,14 +462,14 @@ function ranking(validPatterns)  {
 	            axis: {
 	                hLabel: {
 	                    label: "Horizontal Label",
-	                    value: "X Name",
+	                    value: hLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                },
 	                vLabel: {
 	                    label: "Vertical Label",
-	                    value: "Y Name",
+	                    value: vLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
@@ -404,7 +483,7 @@ function ranking(validPatterns)  {
 	                },
 	                tooltip: {
 	                    label: "Show Tooltip",
-	                    value: false,
+	                    value: true,
 	                    metadata: {
 	                        types: ["boolean"]
 	                    }
@@ -421,6 +500,15 @@ function ranking(validPatterns)  {
 	        datasource: ds_model
     	};
     } else if (validPatterns[0].chart === "Scatter Chart") {
+        var hLabel ="";
+        var vLabel = "";
+        for (var i= 0; i< dimensionValues['xAxis'].length; i++){
+            hLabel += dimensionValues['xAxis'][i].label + " ";
+        }
+        for (var i= 0; i< dimensionValues['yAxis'].length; i++){
+            vLabel += dimensionValues['yAxis'][i].label + " ";
+        }
+        
     	configuration = {
     		id: 382774,
 	        name: "Scatter Chart",
@@ -429,21 +517,21 @@ function ranking(validPatterns)  {
 	            dimensions: {
 	                yAxis: {
 	                    label: "Vertical Axis",
-	                    value: [],
+	                    value: dimensionValues['yAxis'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                },
 	                xAxis: {
 	                    label: "Horizontal Axis",
-	                    value: [],
+	                    value: dimensionValues['xAxis'],
 	                    metadata: {
 	                        types: ["number, ", "string or ", "date"]
 	                    }
 	                },
 	                group: {
 	                    label: "Groups",
-	                    value: [],
+	                    value: dimensionValues['group'],
 	                    metadata: {
 	                        types: ["date, ", "number or ", "string"]
 	                    }
@@ -454,21 +542,21 @@ function ranking(validPatterns)  {
 	            axis: {
 	                hLabel: {
 	                    label: "Horizontal Label",
-	                    value: "X Name",
+	                    value: hLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                },
 	                vLabel: {
 	                    label: "Vertical Label",
-	                    value: "Y Name",
+	                    value: vLabel,
 	                    metadata: {
 	                        types: ["string"]
 	                    }
 	                },
 	                gridlines: {
 	                    label: "Show Gridlines",
-	                    value: false,
+	                    value: true,
 	                    metadata: {
 	                        types: ["boolean"]
 	                    }
@@ -482,7 +570,7 @@ function ranking(validPatterns)  {
 	                },
 	                tooltip: {
 	                    label: "Show Tooltip",
-	                    value: false,
+	                    value: true,
 	                    metadata: {
 	                        types: ["boolean"]
 	                    }
@@ -500,14 +588,14 @@ function ranking(validPatterns)  {
 	            dimensions: {
 	                measure: {
 	                    label: "Drag & drop measure",
-	                    value: [],
+	                    value: dimensionValues['measure'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                },
 	                slice: {
 	                    label: "Drag & drop series",
-	                    value: [],
+	                    value: dimensionValues['slice'],
 	                    metadata: {
 	                        types: ["any"]
 	                    }
@@ -534,28 +622,28 @@ function ranking(validPatterns)  {
 	            dimensions: {
 	                label: {
 	                    label: "Label",
-	                    value: [],
+	                    value: dimensionValues['label'],
 	                    metadata: {
 	                        types: ["number, ", "string or ", "date"]
 	                    }
 	                },
 	                lat: {
 	                    label: "Latitude",
-	                    value: [],
+	                    value: dimensionValues['lat'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                },
 	                long: {
 	                    label: "Longitude",
-	                    value: [],
+	                    value: dimensionValues['long'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
 	                },
 	                indicator: {
 	                    label: "Indicator",
-	                    value: [],
+	                    value: dimensionValues['indicator'],
 	                    metadata: {
 	                        types: ["number"]
 	                    }
