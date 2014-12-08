@@ -16,6 +16,9 @@ App.TreeBranchComponent = Ember.Component.extend({
 App.TreeNodeComponent = Ember.Component.extend({
     tagName: 'li',
     classNames: ['tree-node'],
+    classNameBindings: ['categoricalLabel','numericalLabel'],
+    categoricalLabel: false,
+    numericalLabel: false,
     init: function() {
         this._super();
         this.set('isExpanded', this.get('node.expanded') || false);

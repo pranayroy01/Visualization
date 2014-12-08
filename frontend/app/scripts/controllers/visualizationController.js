@@ -90,6 +90,10 @@ App.VisualizationController = Ember.ArrayController.extend({
         },
         chooseVisualization: function(visualization) {
             this.set('selectedVisualization', visualization);
+        },
+        toggle: function(selector){
+            //$(document).foundation();
+            $(selector).toggleClass("active");
         }
     }
 });

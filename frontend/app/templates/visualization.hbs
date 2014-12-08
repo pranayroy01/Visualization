@@ -1,38 +1,43 @@
 <div class="row box">
     <div class="large-5 medium-3 columns">
+        <div class="accordion" data-accordion>
         <!-- Visualization Selection -->        
-        <div class="row inner_box">
+        <div class="row inner_box accordion-navigation">
             <div class="inner_title_box">
-                <h7>SELECT VISUALIZATION</h7>
-            </div> 
-            <div class="sliderWrapper">
+                <h7> <a {{action "toggle" "#select1"}}>SELECT VISUALIZATION </a></h7>
+            </div>
+            <div class="sliderWrapper content" id="select1">
                 {{view App.SlideShowView slides=controller.recommendations}}
-            </div>    
+            </div>
+            
         </div>                    
         <!-- Visualization Configuration - Left: Tree with data source; Right: dimension mapping -->        
-        <div class="row inner_box">
+        <div class="row inner_box accordion-navigation">
             <div class="inner_title_box">
-                <h7>CONFIGURE VISUALIZATION</h7>
-            </div>                    
+                <h7><a {{action "toggle" "#configure1"}}">CONFIGURE VISUALIZATION</a></h7>
+            </div>    
+            <div id="configure1" class="content active">
             {{view App.ConfigureVisualizationView 
                     strOptionsConfVis=controller.structureOptions 
                     confVis=controller.visualizationConfiguration
                     dsConfVis=controller.datasource
                     treeContent=controller.treeContent}}
+                </div>
         </div>                        
         <!-- Visualization Customization -->   
-        <div class="row inner_box">    
+        <div class="row inner_box accordion-navigation">    
             <div class="inner_title_box">
-                <h7>CUSTOMIZE VISUALIZATION</h7>
+                <h7><a {{action "toggle" "#customize1"}}>CUSTOMIZE VISUALIZATION</a></h7>
             </div> 
-            <div class="row">                        
+            <div class="row content" id="customize1">                        
                 {{view App.VisualizationOptionsView 
                         options=controller.layoutOptions 
                         config=controller.visualizationConfiguration
                         tagName="ul"
                         class="small-block-grid-2 medium-block-grid-3 large-block-grid-5" }}                  
             </div>      
-        </div>  
+        </div>
+        </div>
     </div>                                          
           
     <div class="large-7 medium-9 columns">       
@@ -42,7 +47,13 @@
                 <div id="visualization"></div>               
             </div 
             <!-- Visualization Consumption -->                       
-            <div class="row">
+            <div class="accordion" data-accordion>
+                <div class="accordion-navigation">
+                <div class="inner_title_box">
+                <h7> <a {{action "toggle" "#consumption"}}>VISUALIZATION CONSUMPTION</a></h7>
+                </div>
+            <div class="row content" id="consumption">
+               
                 <div class="large-4 medium-4 columns">      
                     {{partial 'export'}}
                 </div> 
@@ -52,8 +63,11 @@
                 <div class="large-4 medium-4 columns">      
                     {{partial 'publish'}}
                 </div> 
-            </div>  
+            </div>
+            </div>
+            </div>
         </div>
-    </div>   
+    </div>
+     
 
 </div>
