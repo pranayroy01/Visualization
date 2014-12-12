@@ -520,6 +520,21 @@ select[size], select[multiple] {
 }
 
 .numerical-label {
-    background-color: #ffff99;
+    background-color: #ff6600;
 }
 
+.categorical-block {
+    width: 30px;
+    height: 10px;
+    background-color: #66ff99;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.numerical-block {
+    width: 30px;
+    height: 10px;
+    background-color: #ff6600;
+    border-radius: 8px;
+    display: inline-block;
+}

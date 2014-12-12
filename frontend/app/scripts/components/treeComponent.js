@@ -2,6 +2,7 @@
 App.TreeBranchComponent = Ember.Component.extend({
     tagName: 'ul',
     classNames: ['tree-branch'],
+    
     children: function() {
         var node = this.get('node');
 
@@ -17,8 +18,19 @@ App.TreeNodeComponent = Ember.Component.extend({
     tagName: 'li',
     classNames: ['tree-node'],
     classNameBindings: ['categoricalLabel','numericalLabel'],
-    categoricalLabel: false,
-    numericalLabel: false,
+    categoricalLabel: function(){
+        var node = this.get('node');
+        return false;
+    }.property('categoricalLabel'),
+    numericalLabel: function(){
+        var node = this.get('node');
+        if (node.draggable === "true") {
+            return false;
+        }
+        else {
+            return false;
+        }
+    }.property('numericalLabel'),
     init: function() {
         this._super();
         this.set('isExpanded', this.get('node.expanded') || false);
