@@ -93,6 +93,18 @@ var csv_data_module = function() {
             return convert(dataArray, dimensions);
         });
     }
+    
+    function queryExampleData(location,dimensions){
+        
+        return $.get(location).then(function(data){
+            //get two rows of data
+            return $.csv.toArrays(data,{onParseValue: toScalar, start:0, end: 2});
+        }).then(function(dataArray){
+            //return all for index matching, no converting is needed
+            console.dir("DATA from csv "+dataArray);
+            return dataArray;
+        });
+    }
 
     function queryData(location, _class, _properties) {
         var dfd = new jQuery.Deferred();
@@ -143,6 +155,7 @@ var csv_data_module = function() {
 
     return {
         queryData: queryData,
-        parse: parse
+        parse: parse,
+        queryExampleData: queryExampleData
     };
 }();

@@ -1,4 +1,4 @@
-var tree_data = function() {
+var tree_data = function () {
 
     /* first level: data source
      *  second level: csv dummy or classes 
@@ -12,7 +12,7 @@ var tree_data = function() {
             label: 'ROOT',
             children: [],
             type: 'root',
-            getChildren: function(node) {
+            getChildren: function (node) {
                 return node.children;
             },
             data: {}
@@ -24,7 +24,7 @@ var tree_data = function() {
             draggable: "false",
             children: [],
             type: "datasource",
-            getChildren: function(node) {
+            getChildren: function (node) {
                 var result = DS.PromiseArray.create({
                     promise: getNodeChildren(node)
                 });
@@ -54,9 +54,9 @@ var tree_data = function() {
                 children: [],
                 type: "item",
                 parentNode: node,
-                getChildren: function(node) {
+                getChildren: function (node) {
                     var result = DS.PromiseArray.create({
-                        promise: getNodeChildren(node).then(function(children) {
+                        promise: getNodeChildren(node).then(function (children) {
                             node.set('children', children);
                             return children;
                         })
@@ -68,7 +68,19 @@ var tree_data = function() {
                     id: subset.id,
                     label: subset.label,
                     format: format,
-                    location: location
+                    location: location,
+                    datatype: getNodeDatatype(parent.concat([subset.id]), format, location, subset.label, subset.id), //function call to get the type of a property
+//                    getNodeDatatype: function (node) {
+////                        
+//                        var result = DS.PromiseArray.create({
+//                            promise: getNodeDatatype(node.data.parent, node.data.format,node.data.location.node.data.label).then(function(datatype){
+//                                node.set('datatype',datatype);
+//                                return datatype;
+//                            })
+//                        });
+//                        return result;
+//                        
+//                    }
                 }
             }));
         }
@@ -92,7 +104,7 @@ var tree_data = function() {
         var _class = node.data.parent[0];
         var _properties = node.data.parent.slice(1, node.data.parent.length);
 
-        return data_module.queryData(node.data.location, _class, _properties).then(function(subsetInfo) {
+        return data_module.queryData(node.data.location, _class, _properties).then(function (subsetInfo) {
             if (subsetInfo.length === 0) {
                 node.isLeaf = true;
                 return [];
@@ -101,6 +113,65 @@ var tree_data = function() {
                 return children;
             }
         });
+    }
+
+    function simplifyURI(uri) {
+        var splits = uri.split(/[#/:]/);
+        return splits[splits.length - 1];
+    }
+
+    function getNodeDatatype(parent, format, location, label, id) {
+
+        //prepare service information
+        var _class = parent[0];
+        var data_module = getDataModule(format);
+        var endpoint = location.endpoint;
+        var graph = location.graph;
+
+        //promise with a query result
+        if (format === "rdf") {
+            //request for two values of the parameter
+            //sparql_data_module is engaged, check the function
+            return data_module.queryExampleData(location, parent).then(function (result) {
+                var columnsHeaders = result[0];
+                var data = rows(result);
+                console.log("QUERY RESULT FOR CONFIGURATION " + label);
+                console.dir(data);
+
+                //if smth returned can be converted to a data array then check for a type
+                if (data.length > 0) {
+                    var property = simplifyURI(parent[1]);
+                    //todo: include a type comparison of two received values
+                    //current approach for testing
+                    if (typeof (data[0][property]) === "number") {
+                        console.log("Datatype of " + label + " is numerical");
+                        return "numerical";
+                    }
+//                } else if (Object.prototype.toString().call(data[0][property]) === '[object Date]') {
+//                    return "numerical";
+//                } 
+                    else {
+                        console.log("Datatype of " + label + " is categorical");
+                        return "categorical";
+                    }
+                }
+            });
+        } else if (format === "csv") {
+            //get two data rows from csv
+            //csv_data_module is engaged, check the function
+            return data_module.queryExampleData(location, [{id: id}]).then(function (receivedData) {
+                //console.log("Data from tree data module "+receivedData);
+                var dataRow = receivedData[1][id];
+                if (typeof (dataRow) === "string") {
+                    console.log("Datatype of " + label + " is categorical");
+                    return "categorical";
+                } else {
+                    console.log("Datatype of " + label + " is numerical");
+                    return "numerical";
+                }
+            });
+        }
+
     }
 
     return {
