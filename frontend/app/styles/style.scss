@@ -517,10 +517,12 @@ select[size], select[multiple] {
 
 .categorical-label {
     background-color: #66ff99;
+    border-radius: 10px;
 }
 
 .numerical-label {
     background-color: #ff6600;
+    border-radius: 10px;
 }
 
 .categorical-block {

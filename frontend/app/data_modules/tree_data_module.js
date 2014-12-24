@@ -69,18 +69,7 @@ var tree_data = function () {
                     label: subset.label,
                     format: format,
                     location: location,
-                    datatype: getNodeDatatype(parent.concat([subset.id]), format, location, subset.label, subset.id), //function call to get the type of a property
-//                    getNodeDatatype: function (node) {
-////                        
-//                        var result = DS.PromiseArray.create({
-//                            promise: getNodeDatatype(node.data.parent, node.data.format,node.data.location.node.data.label).then(function(datatype){
-//                                node.set('datatype',datatype);
-//                                return datatype;
-//                            })
-//                        });
-//                        return result;
-//                        
-//                    }
+                    datatype: subset.datatype //getNodeDatatype(parent.concat([subset.id]), format, location, subset.label, subset.id), - function call to get the type of a property                   
                 }
             }));
         }
