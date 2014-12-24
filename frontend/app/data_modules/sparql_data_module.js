@@ -409,7 +409,6 @@ var sparql_data_module = function () {
 
     return {
         queryData: queryData,
-        parse: parse,
-        queryExampleData: queryExampleData
+        parse: parse
     };
 }(); 

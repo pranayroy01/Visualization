@@ -94,17 +94,17 @@ var csv_data_module = function() {
         });
     }
     
-    function queryExampleData(location,dimensions){
-        
-        return $.get(location).then(function(data){
-            //get two rows of data
-            return $.csv.toArrays(data,{onParseValue: toScalar, start:0, end: 2});
-        }).then(function(dataArray){
-            //return all for index matching, no converting is needed
-            console.dir("DATA from csv "+dataArray);
-            return dataArray;
-        });
-    }
+//    function queryExampleData(location,dimensions){
+//        
+//        return $.get(location).then(function(data){
+//            //get two rows of data
+//            return $.csv.toArrays(data,{onParseValue: toScalar, start:0, end: 2});
+//        }).then(function(dataArray){
+//            //return all for index matching, no converting is needed
+//            console.dir("DATA from csv "+dataArray);
+//            return dataArray;
+//        });
+//    }
 
     function queryData(location, _class, _properties) {
         var dfd = new jQuery.Deferred();
@@ -120,15 +120,24 @@ var csv_data_module = function() {
             return dfd.promise();
         } else {
             return  $.get(location).then(function(data) {
-                return $.csv.toArrays(data, {onParseValue: toScalar});
+                return $.csv.toArrays(data, {onParseValue: toScalar, start: 0, end:2}); //added restrictions in order to get 2 lines
             }).then(function(dataArray) {
                 var names = dataArray[0];
+                var values = dataArray[1];
+                
                 var columns = [];
 
                 for (var i = 0; i < names.length; i++) {
+                    var choice="";
+                    if (!isNaN(values[i]) || Object.prototype.toString.call(values[i])==='[object Date]' ||Object.prototype.toString.call(values[i])==='[invalid Date]'){
+                        choice = "numerical";
+                    } else {
+                        choice = "categorical";
+                    }
                     columns.push({
                         id: i,
-                        label: names[i]
+                        label: names[i],
+                        datatype: choice
                     });
                 }
 
@@ -155,7 +164,6 @@ var csv_data_module = function() {
 
     return {
         queryData: queryData,
-        parse: parse,
-        queryExampleData: queryExampleData
+        parse: parse
     };
 }();
